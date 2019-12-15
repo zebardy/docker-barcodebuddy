@@ -42,13 +42,13 @@ RUN \
  fi && \
  curl -o \
 	/tmp/barcodebuddy.tar.gz -L \
-	"https://github.com/Forceu/barcodebuddy/archive/${GROCY_RELEASE}.tar.gz" && \
+	"https://github.com/Forceu/barcodebuddy/archive/${BARCODEBUDDY_RELEASE}.tar.gz" && \
  tar xf \
 	/tmp/barcodebuddy.tar.gz -C \
 	/app/barcodebuddy/ --strip-components=1 && \
  cp /tmp/barcodebuddy.tar.gz /app/ && \
- cp -R /app/barcodebuddy/data/plugins \
-	/defaults/plugins && \
+# cp -R /app/barcodebuddy/data/plugins \
+#	/defaults/plugins && \
 # echo "**** install composer packages ****" && \
 # composer install -d /app/barcodebuddy --no-dev && \
 # echo "**** install yarn packages ****" && \
