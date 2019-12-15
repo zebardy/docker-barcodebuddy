@@ -11,16 +11,17 @@ RUN \
  echo "**** install build packages ****" && \
  apk add --no-cache --virtual=build-dependencies \
 	git \
-	composer \
+#	composer \
 	yarn && \
  echo "**** install runtime packages ****" && \
  apk add --no-cache \
 	curl \
 	php7 \
 	php7-gd \
-	php7-pdo \
-	php7-pdo_sqlite \
+#	php7-pdo \
+#	php7-pdo_sqlite \
     php7-sqlite3 \
+    php7-curl \
     php7-opcache \
     php7-apcu \
 	php7-tokenizer && \
