@@ -3,9 +3,9 @@ FROM lsiobase/nginx:3.10
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG GROCY_RELEASE
+ARG BARCODEBUDDY_RELEASE
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="alex-phillips, homerr"
+LABEL maintainer=""
 
 RUN \
  echo "**** install build packages ****" && \
@@ -20,26 +20,28 @@ RUN \
 	php7-gd \
 	php7-pdo \
 	php7-pdo_sqlite \
+    php7-opcache \
+    php7-apcu \
 	php7-tokenizer && \
  echo "**** install grocy ****" && \
- mkdir -p /app/grocy && \
- if [ -z ${GROCY_RELEASE+x} ]; then \
-	GROCY_RELEASE=$(curl -sX GET "https://api.github.com/repos/grocy/grocy/releases/latest" \
+ mkdir -p /app/barcodebuddy && \
+ if [ -z ${BARCODEBUDDY_RELEASE+x} ]; then \
+	BARCODEBUDDY_RELEASE=$(curl -sX GET "https://api.github.com/repos/Forceu/barcodebuddy/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
  curl -o \
-	/tmp/grocy.tar.gz -L \
-	"https://github.com/grocy/grocy/archive/${GROCY_RELEASE}.tar.gz" && \
+	/tmp/barcodbuddy.tar.gz -L \
+	"https://github.com/Forceu/barcodebuddy/archive/${BARCODEBUDDY_RELEASE}.tar.gz" && \
  tar xf \
-	/tmp/grocy.tar.gz -C \
-	/app/grocy/ --strip-components=1 && \
- cp -R /app/grocy/data/plugins \
+	/tmp/barcodebuddy.tar.gz -C \
+	/app/barcodebuddy/ --strip-components=1 && \
+ cp -R /app/barcodebuddy/data/plugins \
 	/defaults/plugins && \
- echo "**** install composer packages ****" && \
- composer install -d /app/grocy --no-dev && \
- echo "**** install yarn packages ****" && \
- cd /app/grocy && \
- yarn && \
+# echo "**** install composer packages ****" && \
+# composer install -d /app/barcodebuddy --no-dev && \
+# echo "**** install yarn packages ****" && \
+# cd /app/barcodebuddy && \
+# yarn && \
  echo "**** cleanup ****" && \
  apk del --purge \
 	build-dependencies && \
@@ -49,8 +51,6 @@ RUN \
 
 # copy local files
 COPY root/ /
-COPY ./DatabaseService.php /app/grocy/services/
-COPY ./StockController.php /app/grocy/controllers/
 
 # ports and volumes
 EXPOSE 6781

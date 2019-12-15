@@ -23,24 +23,6 @@ Find us at:
 * [Podcast](https://anchor.fm/linuxserverio) - on hiatus. Coming back soon (late 2018).
 * [Open Collective](https://opencollective.com/linuxserver) - please consider helping us by either donating or contributing to our budget
 
-# [linuxserver/grocy](https://github.com/linuxserver/docker-grocy)
-[![GitHub Release](https://img.shields.io/github/release/linuxserver/docker-grocy.svg?style=flat-square&color=E68523)](https://github.com/linuxserver/docker-grocy/releases)
-[![MicroBadger Layers](https://img.shields.io/microbadger/layers/linuxserver/grocy.svg?style=flat-square&color=E68523)](https://microbadger.com/images/linuxserver/grocy "Get your own version badge on microbadger.com")
-[![MicroBadger Size](https://img.shields.io/microbadger/image-size/linuxserver/grocy.svg?style=flat-square&color=E68523)](https://microbadger.com/images/linuxserver/grocy "Get your own version badge on microbadger.com")
-[![Docker Pulls](https://img.shields.io/docker/pulls/linuxserver/grocy.svg?style=flat-square&color=E68523)](https://hub.docker.com/r/linuxserver/grocy)
-[![Docker Stars](https://img.shields.io/docker/stars/linuxserver/grocy.svg?style=flat-square&color=E68523)](https://hub.docker.com/r/linuxserver/grocy)
-[![Build Status](https://ci.linuxserver.io/view/all/job/Docker-Pipeline-Builders/job/docker-grocy/job/master/badge/icon?style=flat-square)](https://ci.linuxserver.io/job/Docker-Pipeline-Builders/job/docker-grocy/job/master/)
-[![](https://lsio-ci.ams3.digitaloceanspaces.com/linuxserver/grocy/latest/badge.svg)](https://lsio-ci.ams3.digitaloceanspaces.com/linuxserver/grocy/latest/index.html)
-
-[Grocy](https://github.com/grocy/grocy) is an ERP system for your kitchen! Cut down on food waste, and manage your chores with this brilliant utulity.
-
-Keep track of your purchaes, how much food you are wasting, what chores need doing and what batteries need charging with this proudly Open Source tool
-
-For more information on grocy visit their website and check it out: https://grocy.info
-
-
-[![grocy](https://grocy.info/img/grocy_logo.svg)](https://github.com/grocy/grocy)
-
 ## Supported Architectures
 
 Our images support multiple architectures such as `x86-64`, `arm64` and `armhf`. We utilise the docker manifest for multi-platform awareness. More information is available from docker [here](https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md#manifest-list) and our announcement [here](https://blog.linuxserver.io/2019/02/21/the-lsio-pipeline-project/).
@@ -71,7 +53,7 @@ docker create \
   -p 9283:80 \
   -v <path to data>:/config \
   --restart unless-stopped \
-  linuxserver/grocy
+  zebardy/barcodebuddy
 ```
 
 
@@ -84,8 +66,8 @@ Compatible with docker-compose v2 schemas.
 version: "2"
 services:
   grocy:
-    image: linuxserver/grocy
-    container_name: grocy
+    image: zebardy/barcodebuddy
+    container_name: barcodebuddy
     environment:
       - PUID=1000
       - PGID=1000
@@ -134,11 +116,11 @@ by visiting http://your.ip:9283 - once the page loads, you can log in with the d
 ## Support Info
 
 * Shell access whilst the container is running: `docker exec -it grocy /bin/bash`
-* To monitor the logs of the container in realtime: `docker logs -f grocy`
+* To monitor the logs of the container in realtime: `docker logs -f barcodebuddy`
 * container version number
-  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' grocy`
+  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' barcodebuddy`
 * image version number
-  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' linuxserver/grocy`
+  * `docker inspect -f '{{ index .Config.Labels "build_version" }}' zebardy/barcodebuddy`
 
 ## Updating Info
 
@@ -147,18 +129,18 @@ Most of our images are static, versioned, and require an image update and contai
 Below are the instructions for updating containers:
 
 ### Via Docker Run/Create
-* Update the image: `docker pull linuxserver/grocy`
-* Stop the running container: `docker stop grocy`
-* Delete the container: `docker rm grocy`
+* Update the image: `docker pull zebardy/barcodebuddy`
+* Stop the running container: `docker stop barcodebuddy`
+* Delete the container: `docker rm barcodebuddy`
 * Recreate a new container with the same docker create parameters as instructed above (if mapped correctly to a host folder, your `/config` folder and settings will be preserved)
-* Start the new container: `docker start grocy`
+* Start the new container: `docker start barcodebuddy`
 * You can also remove the old dangling images: `docker image prune`
 
 ### Via Docker Compose
 * Update all images: `docker-compose pull`
-  * or update a single image: `docker-compose pull grocy`
+  * or update a single image: `docker-compose pull barcodebuddy`
 * Let compose update all containers as necessary: `docker-compose up -d`
-  * or update a single container: `docker-compose up -d grocy`
+  * or update a single container: `docker-compose up -d barcodebuddy`
 * You can also remove the old dangling images: `docker image prune`
 
 ### Via Watchtower auto-updater (especially useful if you don't remember the original parameters)
@@ -167,7 +149,7 @@ Below are the instructions for updating containers:
   docker run --rm \
   -v /var/run/docker.sock:/var/run/docker.sock \
   containrrr/watchtower \
-  --run-once grocy
+  --run-once barcodebuddy
   ```
 
 **Note:** We do not endorse the use of Watchtower as a solution to automated updates of existing Docker containers. In fact we generally discourage automated updates. However, this is a useful tool for one-time manual updates of containers where you have forgotten the original parameters. In the long term, we highly recommend using Docker Compose.
@@ -178,12 +160,12 @@ Below are the instructions for updating containers:
 
 If you want to make local modifications to these images for development purposes or just to customize the logic:
 ```
-git clone https://github.com/linuxserver/docker-grocy.git
-cd docker-grocy
+git clone https://github.com/zebardy/docker-barcodebuddy.git
+cd docker-barcodebuddy
 docker build \
   --no-cache \
   --pull \
-  -t linuxserver/grocy:latest .
+  -t zebardy/barcodebuddy:latest .
 ```
 
 The ARM variants can be built on x86_64 hardware using `multiarch/qemu-user-static`
@@ -195,8 +177,3 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **22.09.19:** - Add 'gd' PHP extension.
-* **28.06.19:** - Rebasing to alpine 3.10.
-* **23.03.19:** - Switching to new Base images, shift to arm32v7 tag.
-* **22.02.19:** - Rebasing to alpine 3.9.
-* **27.12.18:** - Initial Release.
