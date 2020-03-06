@@ -32,7 +32,7 @@ RUN \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
  curl -o \
-	/tmp/barcodbuddy.tar.gz -L \
+	/tmp/barcodebuddy.tar.gz -L \
 	"https://github.com/Forceu/barcodebuddy/archive/${BARCODEBUDDY_RELEASE}.tar.gz" && \
  tar xf \
 	/tmp/barcodebuddy.tar.gz -C \
