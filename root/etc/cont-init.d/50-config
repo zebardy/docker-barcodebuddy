@@ -1,16 +1,16 @@
-#!/usr/bin/with-contenv bash
+!/usr/bin/with-contenv bash
 
 ## create missing cache directory
 #mkdir -p /app/grocy/data/viewcache || :
 
-## create symlinks
-#i=/app/grocy/data
-#[[ -e "$i" && ! -L "$i" && -e /config/"$(basename "$i")" ]] && \
-#        rm -Rf "$i" && \
-#        ln -s /config/"$(basename "$i")" "$i"
-#[[ -e "$i" && ! -L "$i" ]] && \
-#	mv "$i" /config/"$(basename "$i")" && \
-#	ln -s /config/"$(basename "$i")" "$i"
+# create symlinks
+i=/app/barcodebuddy/data
+[[ -e "$i" && ! -L "$i" && -e /config/"$(basename "$i")" ]] && \
+        rm -Rf "$i" && \
+        ln -s /config/"$(basename "$i")" "$i"
+[[ -e "$i" && ! -L "$i" ]] && \
+	mv "$i" /config/"$(basename "$i")" && \
+	ln -s /config/"$(basename "$i")" "$i"
 
 ## check for config file and copy default if needed
 #[[ ! -f "/config/data/config.php" ]] && \
@@ -20,5 +20,5 @@
 #    cp -R /defaults/plugins /config/data
 
 chown -R abc:abc \
-    /app/barcodebuddy
-#    /config
+    /app/barcodebuddy \
+    /config/data
