@@ -28,8 +28,8 @@ RUN \
 	curl \
 	php7 \
 	php7-gd \
-#	php7-pdo \
-#	php7-pdo_sqlite \
+	php7-pdo \
+	php7-pdo_sqlite \
     php7-sqlite3 \
     php7-curl \
 	php7-opcache \
