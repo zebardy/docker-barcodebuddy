@@ -24,4 +24,4 @@ steps:
       repo: zebardy/linuxserver-barcodebuddy
       dockerfile: Dockerfile.aarch64
       build_args:
-      - BARCODEBUDDY_RELEASE=v1.5.0.4
+      - BARCODEBUDDY_RELEASE=master
