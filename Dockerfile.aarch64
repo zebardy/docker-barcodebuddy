@@ -45,7 +45,7 @@ RUN \
 	| awk '/tag_name/{print $4;exit}' FS='[""]')-master-$(date +%Y%m%d-%H%M)" && \
  	curl -o \
 		/tmp/barcodebuddy.tar.gz -L \
-		"https://github.com/Forceu/barcodebuddy/tarball/master" \
+		"https://github.com/Forceu/barcodebuddy/tarball/master"; \
  else \
  	if [ -z ${BARCODEBUDDY_RELEASE+x} ]; then \
 		BARCODEBUDDY_RELEASE=$(curl -sX GET "https://api.github.com/repos/Forceu/barcodebuddy/releases/latest" \
@@ -53,7 +53,7 @@ RUN \
 	fi && \
  	curl -o \
 		/tmp/barcodebuddy.tar.gz -L \
-		"https://github.com/Forceu/barcodebuddy/archive/${BARCODEBUDDY_RELEASE}.tar.gz" \
+		"https://github.com/Forceu/barcodebuddy/archive/${BARCODEBUDDY_RELEASE}.tar.gz"; \
  fi && \
  tar xf \
 	/tmp/barcodebuddy.tar.gz -C \
